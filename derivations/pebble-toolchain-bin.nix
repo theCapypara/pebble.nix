@@ -12,21 +12,30 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pebble-toolchain-bin";
-  version = "4.9.77";
+  version = "4.9.148";
 
   src =
-    (rec {
+    ({
       x86_64-linux = fetchzip {
-        url = "https://sdk.core.store/releases/${finalAttrs.version}/toolchain-linux.tar.gz";
-        hash = "sha256-KqLo9b7jqXjcwVCKXLAEwDUuaRpLC7rAAF04b7dLJJA=";
+        url = "https://sdk.repebble.com/releases/${finalAttrs.version}/toolchain-linux-x86_64.tar.gz";
+        hash = "sha256-CXhMgyQ+gLiEQCUA4Gji9bxvV54q25i5mB1mN3qP7Os=";
+        stripRoot = false;
+      };
+      aarch64-linux = fetchzip {
+        url = "https://sdk.repewbble.com/releases/${finalAttrs.version}/toolchain-linux-aarch64.tar.gz";
+        hash = "sha256-AH2PfB1Arc3hskyNQMiAaPnSGtzbLDnagnEPQcr8zYo=";
         stripRoot = false;
       };
       x86_64-darwin = fetchzip {
-        url = "https://sdk.core.store/releases/${finalAttrs.version}/toolchain-mac.tar.gz";
-        hash = "sha256-b726pEHoOIHQZkCXpqoq4UFGfiloyh4lSLcwJwZi6Ic=";
+        url = "https://sdk.repewbble.com/releases/${finalAttrs.version}/toolchain-mac-x86_64.tar.gz";
+        hash = "sha256-nVAYdw0wyq1oJAI8Xsr77/U+xhPa+U77s1cQBFxAzQM=";
         stripRoot = false;
       };
-      aarch64-darwin = x86_64-darwin;
+      aarch64-darwin = fetchzip {
+        url = "https://sdk.repewbble.com/releases/${finalAttrs.version}/toolchain-mac-arm64.tar.gz";
+        hash = "sha256-oCfWQ+fj5Lj4wwSYKwAQISMGYDfAv/jfzGSqBtUkTus=";
+        stripRoot = false;
+      };
     }).${stdenv.hostPlatform.system};
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
