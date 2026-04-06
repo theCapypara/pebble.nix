@@ -2,7 +2,6 @@
   stdenv,
   lib,
   fetchzip,
-  autoPatchelfHook,
 
   expat,
   ncurses5,
@@ -38,7 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
       };
     }).${stdenv.hostPlatform.system};
 
-  nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
   buildInputs = [
     python2
   ]
